@@ -1,0 +1,49 @@
+$pad: 2em
+$shift: 1em
+
+dl, ul, ol
+    padding-left: $pad
+
+[title]:not([title=""])
+    @apply underline decoration-dotted
+
+details.shift
+    padding-left: $shift
+    summary
+        margin-left: -$shift
+html
+    @apply text-black text-lg bg-lightest leading-normal
+    @apply dark:text-lightest dark:bg-black
+    // @apply print:text-white print:bg-black
+    font-family: Roboto, 'UD Digi Kyokasho NK-R', sans-serif
+body, main
+    @apply mx-auto my-4
+main
+    @apply print:mx-4 max-w-[40em] print:max-w-none mb-[30em]
+
+h1, h2, h3
+    @apply leading-tight dark:text-yellow
+
+code
+    @apply whitespace-pre leading-4
+    font-family: 'Iosevka Web', 'UD Digi Kyokasho NK-R', monospace
+a
+    @apply text-blue dark:text-yellow no-underline hover:underline
+    // @apply visited:text-red dark:visited:text-light
+    @apply dark:hover:bg-darker dark:hover:text-white
+img
+    @apply dark:invert max-w-full text-black
+p, header, dl, ul, ol, pre
+    @apply m-0
+rt
+    @apply select-none
+table
+    @apply border-collapse whitespace-nowrap
+tbody
+    @apply divide-solid divide-dark divide-x-0 divide-y
+th:empty
+    @apply hidden
+thead > tr:last-child th:not(:empty)
+    @apply border-0 border-b border-solid
+td, th
+    @apply p-2

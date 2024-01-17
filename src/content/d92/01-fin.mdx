@@ -1,0 +1,935 @@
+---
+title: Finite Fields
+---
+
+## Rings
+
+<details class="definition" open>
+<summary>ring</summary>
+a **ring** $R$ is set with *addition* and *multiplication* such that
+
+- $R$ is abelian group under addition
+- $R$ is monoid under multiplication
+- multiplication is distributive wrt addition
+
+<details>
+<summary>(that is)</summary>
+
+$$
+\begin{align*}
+  \forall a\forall b\forall c&& (a+b)+c&=a+(b+c)\\
+  \forall a\forall b&& a+b&=b+a\\
+  \exists0\forall a&& a+0&=a\\
+  \forall a\exists-a&&a+(-a)&=0\\
+\end{align*}
+\\[1em]
+\begin{align*}
+  \forall a\forall b\forall c&&(ab)c&=a(bc)\\
+  \exists1\forall a&&a1&=1a=a\\
+\end{align*}
+\\[1em]
+\begin{align*}
+  \forall a\forall b\forall c&& a(b+c)&=ab+ac\\
+  \forall a\forall b\forall c&&(b+c)a&=ba+ca
+\end{align*}
+$$
+</details>
+
+</details>
+
+<details class="definition" open>
+<summary></summary>
+
+- ring with commutative multiplication is a **commutative** ring
+- $a$ **divides** $b\iff a|b$
+  - that is $\exists c\enspace b=ac$
+- $a$ is a **unit** $\iff a$ has multiplicative inverse
+- let $R^*$ denote $R\setminus\{0\}$ (without add iden)
+- $\operatorname{char}R$ is the **characteristic** of $R$
+  - that is, additive order of $1$ if finite, otherwise $\operatorname{char}R=0$
+</details>
+
+
+<details class="example" open>
+<summary>everyday rings</summary>
+- $\mathbb Z$ is comm ring
+- $\mathbb Z_n$ is comm ring
+- $\mathbb Z[x]$ is comm ring (see [Polynomial Rings](#polynomial-rings))
+- $R_1\oplus R_2$ is ring
+</details>
+
+## Integral Domains
+
+<details class="definition" open>
+<summary>integral domain</summary>
+an **integral domain** $D$ is a commutative ring without zero divisors, that is,
+$$
+\forall a\forall b\enspace ab=0\implies a=0\text{ or }b=0
+$$
+
+a zero divisor in $a\in R^*$ such that $\exists b\in R^*\enspace ab=0$
+</details>
+
+<details class="theorem" open>
+<summary>cancellation in integral domain</summary>
+for any $a\in D^*$ and $b,c\in D$
+
+$$
+ab=ac\implies b=c
+$$
+</details>
+
+<details class="example" open>
+<summary></summary>
+- $\mathbb Z$ and $\mathbb Z[x]$ are integral domains
+- $\mathbb Z_n$ is integral domain $\iff n$ is prime
+- $\mathbb Z\oplus\mathbb Z$ is not integral domain $(0,1)(1,0)=0$
+</details>
+
+<details class="theorem" open>
+<summary>$\mathbb Z_n$ is integral domain $\iff n$ is prime</summary>
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+$(\implies)$ assume $n$ is composite
+
+- $\therefore\exists1\lt a,b\lt n$ such that $n=ab$
+- $\therefore ab\equiv 0\mod n$, thus $a\in\mathbb Z_n$ is zero divisor
+- $\therefore\mathbb Z_n$ is not intdom
+
+$(\impliedby)$ assume $n$ is prime
+
+- let any $a,b\in\mathbb Z_n$ st $ab=0$
+- $\therefore p|ab$
+- $\therefore p|a$ or $p|b$ since $p$ is prime
+- $\therefore a=0$ or $b=0$
+- $\therefore \mathbb Z_n$ is intdom $\quad\square$
+</details>
+</details>
+
+<details class="theorem" open>
+<summary>characteristic of integral domain is $0$ or prime</summary>
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+assume $\operatorname{char} D=n$, wts $n$ is prime
+
+let any $1\le s,t\le n$ such that $n=st$
+
+- $\therefore0=n\cdot 1=st\cdot1=(s\cdot 1)(t\cdot 1)$
+- $\therefore s\cdot 1=0$ or $t\cdot 1=0$
+- $\because n$ is smallest integer st $n\cdot 1=0$
+- $\therefore s=n$ or $t=n$, thus $n$ prime $\quad\square$
+</details>
+</details>
+
+
+
+## Fields
+
+<details class="definition" open>
+<summary>field</summary>
+a **field** $F$ is commutative ring but $F^*$ is group under multiplication
+
+- i.e. every nonzero element has inverse (is unit)
+</details>
+
+
+<details class="theorem" open>
+<summary></summary>
+any field is an integral domain
+<details>
+<summary>**Proof.**</summary>
+let any $ab=0$ and $a\ne 0$
+
+- $\therefore b=a^{-1}ab=a^{-1}0=0$
+- $\therefore$ is intdom
+</details>
+
+any finite integral domain is field
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+let any intdom $D$ and any $a\in D$, wts $a$ has mul inverse
+
+case $a=1$, then $aa=1$ as wanted
+
+case $a\ne 1$
+- let sequence $(a^n\in D)$
+- $\because D$ finite
+- $\therefore\exists i\gt j$ such that $a^i=a^j$, thus $a^{i-j}=1$ by cancellation
+- $\because a\ne 1$
+- $\therefore i-j\gt 1$, thus $a^{i-j-1}a=1$ as wanted
+
+$\therefore a$ as mul inverse $\quad\square$
+</details>
+
+**Corollary.** $\mathbb Z_p$ is field for any prime $p$
+</details>
+
+## Ideals and Factor Rings
+
+<details class="definition" open>
+<summary>ideal (analogue to normal subgroups)</summary>
+a subring $A\sube R$ is an **ideal** iff
+$$
+\forall r\in R\quad rA,Ar\sube A
+$$
+where $rA=\{ra:a\in A\}$ and $Ar=\{ar:a\in A\}$
+</details>
+
+<details class="theorem" open>
+<summary>ideals are normal subgroups under addition</summary>
+<details class="list-none">
+<summary>**Proof.** because ring is abelian</summary>
+let idea $A\sube R$
+
+- $\because A$ is subring
+- $\therefore A$ is group under addition, thus subgroup of $R$
+- $\because R$ is abelian
+- $\therefore A$ is normal $\quad\square$
+</details>
+</details>
+
+<details class="definition" open>
+<summary>factor rings</summary>
+for ring $R$ and ideal $A\sube R$, the factor ring is
+
+$$
+R/A=\{r+A:r\in R\}
+$$
+
+where $(a+A)+(b+A)=(a+b)+A$ and $(a+A)(b+A)=ab+A$
+</details>
+
+<details class="theorem" open>
+<summary>$R/A$ is ring $\iff A$ is ideal</summary>
+
+<details class="list-none">
+<summary>**Proof.** wts $A$ is ideal $\iff$ mul of $R/A$ is well-defined</summary>
+$(\implies)$ assume subring $A\sube R$ is ideal
+
+- let any $r+A=r'+A$ and $s+A=s'+A$
+  - wts $rs+A=r's'+A$
+- $\because\exists a,b\in A$ st $r=r'+a$ and $s=s'+b$ by def
+- $\because A$ <span title="contains">absorbes</span> $a's,r'b,ab$
+
+$$
+\begin{align*}
+  \therefore&& rs&=(r'+a)(s'+b)=r's'+a's+r'b+ab\\
+  \therefore&& rs+A&=r's'+a's+r'b+ab+A=r's'+A
+\end{align*}
+$$
+
+- $\therefore$ well-defined
+
+$(\impliedby)$ assume $A$ not ideal, that is, $\exists a\in A$ and $r\in R$ but $ar\notin A$ or $ra\notin A$
+
+- WLOG assume $ar\notin A$
+
+$$
+\begin{align*}
+  \therefore&&(a+A)(r+A)&=(0+A)(r+A)=0r+A=A\\
+  &&(a+A)(r+A)&=ar+A\ne A
+\end{align*}
+$$
+
+- $\therefore$ not well-defined $\quad\square$
+
+
+</details>
+</details>
+
+<details class="definition" open>
+<summary>prime ideal (analogue to prime numbers), maximal ideal of commutative rings</summary>
+proper ideal $A\sub R$ (of comm ring) is a **prime** iff
+<div class="flex justify-center">
+$\forall a,b\in R\quad ab\in A\implies a\in A$ or $b\in A$
+</div>
+
+proper ideal $A\sub R$ (of comm ring $R$) **maximal** iff
+
+<div class="flex justify-center">
+for any ideal $B\sube R\quad A\sube B\sube R\implies A=B$ or $B=R$
+</div>
+</details>
+
+<details class="theorem" open>
+<summary>ideal $A\sube R$ contains a unit $\iff A=R$</summary>
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+$(\implies)$ assume $A$ contains unit $u$
+- let any $r\in R$
+- $\therefore r=r(u^{-1}u)=(ru^{-1})u\in A$
+
+$(\impliedby) 1_R\in  R=A\quad\square$
+</details>
+
+**Corollary.** $a$ is unit $\implies\langle a\rangle=R$
+</details>
+
+<details class="example" open>
+<summary>$A$ maximal $\implies A$ prime (without $R/A$)</summary>
+<details class="list-none">
+<summary>**Proof.**</summary>
+let any maximal idea $A\sube R$ and BWOC assume $A$ not prime
+
+- $\therefore\exists a,b\in R\setminus A$ st $ab\in A$
+- let $B=\{x+ar:x\in A\enspace r\in R\}$ be ideal generated by $A;a$
+- $\therefore A\sub B\sube R$, thus $B=R$
+- $\therefore 1_R\in B$ and $1_R=x+ar$ for some $x\in A$ and $r\in R$
+- $\therefore b=b1_R=b(x+ar)=bx+bar$
+- $\because bx\in bA\sube A$ and $bar\in Ar\sube A$
+- $\therefore b=bx+bar\in A$, constradicts that $b\notin A\quad\square$
+</details>
+</details>
+
+<details class="theorem" open>
+<summary>$R/A$ is integeral domain $\iff A$ is prime</summary>
+<details class="list-none">
+<summary>**Proof.**</summary>
+let any commutative ring $R$ and ideal $A$
+
+$(\implies)$ assume $R/A$ is intdom
+
+- let any $ab\in A$
+- $\therefore(a+A)(b+A)=ab+A=A$ (i.e. the add identity)
+- $\therefore a+A=A$ or $b+A=A$
+- $\therefore a\in A$ or $b\in A$, thus $A$ prime
+
+$(\impliedby)$ assume $A$ is prime
+
+- let any $(a+A),(b+A)\in R/A$ such that product is $A$
+- $\therefore (a+A)(b+A)=ab+A=A$, thus $ab\in A$
+- $\therefore a\in A$ or $b\in A$ since $A$ is prime
+- $\therefore a+A=A$ or $b+A=A$ (i.e. the add identity)
+- $\therefore R/A$ has no zero divisor
+- $\because R/A$ is comm ring
+- $\therefore R/A$ is intdom $\quad\square$
+</details>
+</details>
+
+<details class="theorem" open>
+<summary>$R/A$ is field $\iff A$ is maximal</summary>
+<details class="list-none">
+<summary>**Proof.**</summary>
+$(\implies)$ let $R/A$ be field and any ideal $B\supset A$
+
+- $\therefore\exists b\in B\setminus A$
+- $\therefore b+A\ne A$, that is, $b+A\in (R/A)^*$
+- $\therefore\exists c+A\in R/A$ st $1+A=(b+A)(c+A)=bc+A\in R/A$, that is, $b+A$ has a mul inverse in field $R/A$
+- $\therefore 1-bc\in A\sub B$
+- $\therefore 1=(1-bc)+bc\in B$, thus $B=R$
+- $\therefore A$ is maximal
+
+$(\impliedby)$ assume $A$ is maximal
+- let any $b+A\in(R/A)^*$, that is, $b\in R\setminus A$, wts $b+A$ has mul inv
+- let $B=\{br+a:r\in R\enspace a\in A\}\supset A$ be ideal generated by $A;b$
+- $\therefore B=R$ since $A$ is maximal
+- $\therefore 1\in B$, let $1=bc+a$ for some $c\in R$ and $a\in A$
+
+$$
+\therefore (b+A)(c+A)=bc+A=(bc+a)+A=1+A
+$$
+- $\therefore b+A$ has mul inv
+- $\therefore R/A$ is field $\quad\square$
+</details>
+</details>
+
+<details class="definition" open>
+<summary>principal ideal of commutative ring</summary>
+let commutative $R$ and $a\in R$, the **principal ideal** generated by $a$ is
+
+$$
+\langle a\rangle=\{ra|r\in R\}
+$$
+</details>
+
+
+<details class="definition" open>
+<summary>principal ideal domain</summary>
+integral domain $D$ is a **principal ideal domain** $\iff$ every ideal of $D$ is principal
+</details>
+
+## Polynomial Rings
+
+<details class="definition" open>
+<summary>ring of polynomial over $R$</summary>
+let commutative ring $R$, the ring of **polynomials** over $R$ is
+
+$$
+R[x]=\{a_nx^n+\cdots+a_1x+a_0:a_i\in R\enspace n\in\mathbb N\}
+$$
+
+- in $R[x]$, polynomials $f(x)=g(x)$ iff coefficients are equal
+
+<details>
+<summary><s>polynomial</s> sequence</summary>
+
+$a_0+a_1x+\cdots+a_nx^n$ can be technically represented as $(a_0,a_1,\cdots,a_n,0,0,\cdots)$
+
+- that is, sequence over $R$
+</details>
+</details>
+
+<details class="definition" open>
+<summary>for polynomial $p(x)=a_nx^n+\cdots+a_1x+a_0$ where $a_n\ne0$</summary>
+
+$a_n$ is the **leading coefficient**
+- $p(x)$ is **monic** $\iff$ leading coefficient is $1$
+
+</details>
+
+<details class="definition" open>
+<summary>degree</summary>
+for polynomial $p(x)=a_nx^n+\cdots+a_1x+a_0$ where $a_n\ne0$
+
+- degree of $0$ is undefined
+- **degree** of $p(x)$ is $\deg p(x)=n$
+
+
+$$
+\begin{align*}
+  \deg (f(x)g(x))&=\deg f(x)+\deg g(x)\\
+  \deg (f(x)+g(x))&=\max\{\deg f(x),\deg g(x)\}
+\end{align*}
+$$
+</details>
+
+<details class="theorem" open>
+<summary>polynomial over integral domain is integeral domain</summary>
+if $D$ is integral domain, then $D[x]$ is integral domain
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+let intdom $D$
+
+- $\therefore D$ comm, thes $D[x]$ comm
+- $\because 1$ is mul idenity of $D$
+- $\therefore p(x)=1$ is mul identity of $D[x]$
+
+wts $D[x]$ has no zero divisors, let any $p,q\in D[x]^*$
+
+- let $a_n,b_m\in D^*$ be leading coefficients of $p$ and $q$
+- $\therefore$ the leading coef of $p(x)q(x)$ is $a_nb_m\ne0$
+- $\therefore p(x)q(x)\ne0$ as wanted
+
+
+$\therefore D[x]$ is integral domain $\quad\square$
+</details>
+
+<details open>
+<summary>**Example.** polynomial over field is not necessarily field</summary>
+todo
+</details>
+</details>
+
+<details class="theorem" open>
+<summary>division algorithm</summary>
+let field $F$ and $f(x),g(x)\ne 0\in F[x]$, then $\exists!q(x),r(x)\in F[x]$ where
+
+- $f(x)=q(x)g(x)+r(x)$
+- $r(x)=0$ or $\deg r(x)\lt \deg g(x)$
+
+
+**Corollary.** factor theorem: $a$ is zero $\iff (x-a)$ is factor
+<div class="flex justify-center">
+$f(a)=0\iff (x-a)|f(x)$ for any $a\in F$
+</div>
+</details>
+
+<details class="theorem" open>
+<summary>zeros</summary>
+for any $f(x)\in F[x]^*$
+<div class="flex justify-center">
+$\deg f(x)=n\implies f(x)$ has at most $n$ zeros (with mulitiplicity)
+</div>
+
+<details class="list-none">
+<summary>**Proof.** by induction</summary>
+
+base: $\deg f(x)=0\implies f(x)$ has no zeros (constant polynomial)
+
+let any $f(x)$ where $\deg f(x)=n\gt0$
+
+- case $f(x)$ has no zero, then it has at most $n$ zeros
+- case $f(x)$ has zero $a\in F$ with multiplicity $k$
+  - $\therefore f(x)=(x-a)^kq(x)$ for some $q\ne0$
+  - case $a$ is the only zero of $f(x)$
+  - $\therefore k=n-\deg f(x)\le n$ as wanted
+  - case let any other zero $b\ne a\in F$ of $f(x)$
+  - $\therefore 0=f(b)=(b-a)^kq(b)$
+  - $\because(b-a)^k\ne0$
+  - $\therefore q(b)=0$ since $F[x]$ is intdom
+  - $\therefore b$ is zero of $q(x)$
+  - $\therefore q(x)$ has at most $\deg q(x)=n-k$ zeros
+  - $\therefore f(x)$ has at most $k+(n-k)=n$ zeros $\quad\square$
+</details>
+
+a zero with multiplicity more than one is a **multiple zero**
+</details>
+
+<details class="theorem" open>
+<summary>polynomial over a field is principal ideal domain</summary>
+$F[x]$ is principal ideal domain for any field $F$
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+let any field $F$
+
+- $\therefore F$ is intdom, thus $F[x]$ intdom
+
+let any ideal $I$ of $F[x]$
+
+- if $I=\{0\}$, then $I=\langle 0\rangle$, thus principal
+
+assume $I$ is not trivial
+
+- let $g\in I$ with minimum degree, thus $\langle g\rangle\sube I$
+- let any $f=gq+r\in I$ for some $q,r\in F[x]$ where $r=0$ or $\deg r\lt \deg g$
+- $\because r=f-gq\in I$ while $g\in I$ has min deg
+- $\therefore\deg r\not\lt\deg g$, thus $r=0$
+- $\therefore f=gq\in\langle g\rangle$
+- $\therefore I\sube\langle g\rangle$, thus principal
+
+$\therefore F[x]$ is principal ideal domain $\quad\square$
+
+</details>
+</details>
+
+<details class="example" open>
+<summary>(exercise 43)</summary>
+</details>
+
+
+### Factorisation of Polynomials over Fields
+
+<details class="definition" open>
+<summary>irreducible vs reducible polynomials</summary>
+for field $F$, a nonconstant $p\in F[x]$ is **irreducible** over $F$ iff
+<div class="flex justify-center">
+$\forall f(x)\forall g(x)\quad p(x)=f(x)g(x)\implies f(x)=1$ or $g(x)=1$
+</div>
+</details>
+
+<details class="theorem" open>
+<summary>degree 2/3 is reducible $\iff$ has zero</summary>
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+let $f(x)\in F[x]$ where $\deg f(x)\in\{2,3\}$
+
+$(\implies)$ assume $f(x)=p(x)q(x)$ for some $\deg p(x),\deg q(x)\lt\deg f(x)$
+- $\therefore 1\le\deg p(x),\deg q(x)$ and $\deg p(x)+\deg q(x)=\deg f(x)$
+- WLOG assume $\deg p(x)=1$, that is $p(x)=ax+b$ for some $a,b\in F$
+- $\therefore -b/a$ is zero of $p$, thus zero of $f(x)$ as wanted
+
+$(\impliedby)$ assume $f(x)$ has zero $a\in F$
+
+- $\therefore x-a$ is factor of $f(x)$ (factor theorem)
+- $\therefore f(x)$ is reducible over $F\quad\square$
+</details>
+</details>
+
+<details class="theorem" open>
+<summary> principal ideal is maximal $\iff$ generator is irreducible</summary>
+for any $p(x)\in F[x]$
+
+<div class="flex justify-center">
+ $\langle p(x)\rangle$ is maximal $\iff p(x)$ is irreducible over $F$
+</div>
+
+
+<details class="list-none">
+<summary>**Proof.** </summary>
+$(\implies)$ assume $\langle p(x)\rangle$ is maximal 
+
+- case $p(x)=0$
+  - $\therefore\langle p(x)\rangle=\{0\}$
+  - case $F$ is trivial, thus $\langle p(x)\rangle=F[x]$, thus not maximal
+  - case $F$ is nontrivial, let nontrivial $a\in F$
+    - let ideal $I=\langle ax\rangle=\{axf(x):f(x)\in F[x]\}$
+    - $\therefore ax\in I$, thus $\langle p(x)\rangle\sub I$ since $I$ is ring (contains $0$)
+    - $\phantom\therefore a\notin I$, thus $I\sub F[x]$
+    - $\therefore\langle p(x)\rangle\sub I\sub F[x]$
+  - $\therefore\langle p(x)\rangle$ is not maximal
+- case $p(x)$ is unit
+  - $\therefore\langle p(x)\rangle=F[x]$, thus not maximal
+- $\therefore p(x)$ is nonzero and nonunit
+- let any factorisation $p(x)=g(x)h(x)$ over $F$
+- $\therefore\langle p(x)\rangle\sube\langle g(x)\rangle\sube F[x]$
+- $\therefore\langle p(x)\rangle=\langle g(x)\rangle$ or $\langle g(x)\rangle=F[x]$
+
+- case $\langle p(x)\rangle=\langle g(x)\rangle$
+  - $\therefore\exists a(x),a'(x)\in F[x]$ st $p(x)=g(x)a(x)$ and $g(x)=p(x)a'(x)$
+  $$
+  \begin{align*}
+  \deg p(x)&=\deg g(x)+\deg a(x)\ge\deg g(x)\\
+  \deg g(x)&=\deg p(x)+\deg a'(x)\ge\deg p(x)\\
+  \end{align*}
+  $$
+  - $\therefore\deg p(x)=\deg g(x)$
+- case $\langle g(x)\rangle=F[x]$
+  - $\therefore\deg g(x)=0$
+  - $\therefore\deg h(x)=\deg p(x)-\deg g(x)=\deg p(x)$
+- $\therefore p(x)$ irreducible in field $F$
+
+$(\impliedby)$ assume $p(x)$ is irreducible over $F$
+- let any ideal $I$ such that $\langle p(x)\rangle\sube I\sube F[x]$
+- $\because F[x]$ is principal ideal domain
+- $\therefore I$ is principal, let $f(x)\in F[x]$ be the generator of $I$
+- $\therefore\exists g(x)\in F[x]$ st $p(x)=f(x)g(x)$
+- $\because p(x)$ is irreducible
+- $\therefore f(x)$ is constant or $g(x)$ is constant
+- case $f(x)$ is constant
+  - $\therefore I=\langle f(x)\rangle=F[x]$
+- case $g(x)$ is constant, thus $\deg f(x)=\deg p(x)$
+  - $\therefore I=\langle f(x)\rangle=\langle p(x)\rangle$
+- $\therefore\langle p(x)\rangle$ is maximal $\quad\square$
+
+</details>
+
+**Corollary.** for any irreducible $p(x)$, the factor ring $F[x]/\langle p(x)\rangle$ is field
+
+**Corollary.** $p(x)|a(x)b(x)\implies p(x)|a(x)$ or $p(x)|b(x)$
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+
+$\because p(x)$ irreducible\
+$\therefore F[x]/\langle p(x)\rangle$ is field, thus integral domain\
+$\therefore\langle p(x)\rangle$ is prime ideal\
+$\because p(x)|a(x)b(x)$\
+$\therefore a(x)b(x)\in\langle p(x)\rangle$\
+$\therefore a(x)\in \langle p(x)\rangle$ or $b(x)\in\langle p(x)\rangle$\
+$\therefore p(x)|a(x)$ or $p(x)|b(x)\quad\square$
+</details>
+</details>
+
+## Divisibility in Integral Domains
+
+<details class="definition" open>
+<summary>associates, irreducibles, primes</summary>
+let $D$ be integral domain
+
+- $(a,b)\in D^2$ are **associates** $\iff a=ub$ for some unit $u\in D$
+- nonunit $a\in D^*$ is **irreducible** $\iff\forall b\forall c\quad a=bc\implies b$  is unit or $c$ is unit
+- nonunit $a\in D^*$ is **prime** $\iff\forall b\forall c\quad a|bc\implies a|b$ or $a|c$
+
+</details>
+
+<details class="theorem" open>
+<summary>prime $\implies$ generates prime principal ideal</summary>
+<div class="flex justify-center">
+$a\in D$ prime $\implies\langle a\rangle\sube D$ prime
+</div>
+</details>
+<details class="theorem" open>
+<summary>associates $\iff$ generates same principal ideal</summary>
+$(a,b)$ associates $\iff\langle a\rangle=\langle b\rangle$
+
+</details>
+
+<details class="theorem" open>
+<summary>(integral domain) prime $\implies$ irreducible</summary>
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+let any prime $a=bc$ in any intdom $D$
+- $\therefore a|b$ or $a|c$
+- WLOG assume $a|b$, that is, $at=b$ for some $t\in D$
+- $\therefore b1=b=at=(bc)t=b(ct)$
+- $\therefore 1=ct$ by cancellation in intdom
+- $\because c$ is unit
+
+$\therefore a$ irreducible $\quad\square$
+</details>
+
+</details>
+
+<details class="theorem" open>
+<summary>(principal integral domain) irreducible $\iff$ prime</summary>
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+wts irreducible $\implies$ prime in PIDS
+
+- let any irreducible $a$ in PID $D$
+- let any $b,c\in D$, assume $a|bc$
+- let ideal $A=\{ax+by:x,y\in D\}=\langle d\rangle$ for some $d\in D$
+- $\therefore a\in A$, let $a=dr$ for some $r\in D$
+- $\therefore d$ is unit or $r$ is unit
+- case $d$ is unit
+  - $\therefore A=D$
+  - $\therefore\exists x,y\in D$ st $1=ax+by$, that is, $c=acx+bcy$
+  - $\because a|\underline{a}cx$ and $a|\underline{bc}y$
+  - $\therefore a|c$
+- case $r$ is unit
+  - $\therefore (a,d)$ associates, thus $\langle a\rangle=\langle d\rangle=A$
+  - $\therefore\exists t\in D$ st $b=at$ since $b\in A$
+  - $\therefore a|b$
+
+$\therefore a$ prime $\quad\square$
+</details>
+</details>
+
+<details class="definition" open>
+<summary>unique factorisation domain</summary>
+an integral domain $D$ is a **unique factorisation domain** iff
+
+- every nonunit nonzero element can be expressed as a unique product of irreducibles up to associates and order 
+</details>
+
+<details class="theorem" open>
+<summary>principal ideal domain $\implies$ unique factorisation domain</summary>
+
+<details class="list-none">
+<summary>**Lemma.** (?) in a PID, any strictly increasing ideals is finite (in length)</summary>
+p350
+</details>
+<details class="list-none">
+<summary>**Proof.** (?)</summary>
+
+</details>
+
+**Corollary.** $F[x]$ is unique factorisation domain
+</details>
+
+## Extension Fields
+
+<details class="definition" open>
+<summary>extension field</summary>
+field $E$ is an **extension** of field $F$ iff $F$ (up to isomorphism) is a subfield of $E$
+</details>
+
+<details class="theorem" open>
+<summary>fundamental theorem of field theory</summary>
+for any nonconstant $f(x)$ over field $F$
+
+<div class="flex justify-center">
+there exists extension of $E$ in which $f(x)$ has a zero
+</div>
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+let any field $F$ and any nonconstant $f(x)\in F[x]$
+
+- $\because F[x]$ is UFD
+- $\therefore f(x)$ has some irreducible factor $p(x)$
+- let $E=F[x]/\langle p(x)\rangle$ be field
+- let homomorphism $\varphi:F\to E$ where $\varphi(a)=a+\langle p(x)\rangle$
+- $\therefore\varphi$ is injective, thus $F\cong\varphi(F)\sube E$ as wanted
+
+wts $p(x)$ has zero in $E$
+
+- let $p(x)=a_nx^n+\cdots+a_1x+a_0$
+
+$$
+\begin{align*}
+  \therefore p(x+\langle p(x)\rangle)&=a_n(x+p\langle x\rangle)^n+\cdots+a_1(x+p\langle x\rangle)+a_0\\
+  &=a_nx^n+\cdots+ax+a_0+\langle p(x)\rangle\\
+  &=p(x)+\langle p(x)\rangle=\langle p(x)\rangle=0_E
+\end{align*}
+$$
+
+- $\therefore x+\langle p(x)\rangle\in E$ is zero of $p(x)\quad\square$
+</details>
+</details>
+
+
+<details class="definition" open>
+<summary>splitting field</summary>
+
+- nonconstant $f(x)$ over field $F$ **splits** in extension $E$ iff
+
+$$
+\exists a\in F\enspace\exists a_i\in E\quad f(x)=a(x-a_1)\cdots(x-a_n)
+$$
+
+- extension $E$ is a **splitting field** for nonconstant $f(x)$ over field $F$ iff 
+
+<div class="flex justify-center">
+$E$ is the smallest extension of $F$ in which $f(x)$ splits (i.e. contains $a_i$)
+</div>
+
+</details>
+
+<details class="theorem" open>
+<summary>splitting field exists</summary>
+for any nonconstant $f(x)$ over field $F$
+<div class="flex justify-center">
+there exists a splitting field $E$ for $f(x)$ over $F$
+</div>
+
+<details class="list-none">
+<summary>**Proof.** (?)</summary>
+p369
+</details>
+</details>
+
+### Derivative
+
+<details class="definition" open>
+<summary>formal derivative (axiomatic)</summary>
+for ring $R$, the **formal derivative** is the map $(-)':R[x]\to R[x]$ such that
+
+- $r'=0$ for any $r\in R\sube R[x]$
+- $x'=1$
+- commutes with addition
+  $$
+  (a+b)'=a'+b'
+  $$
+- product rule wrt multiplication
+$$
+(ab)'=a'b+ab'
+$$
+</details>
+<details class="theorem" open>
+<summary>formal derivative (formula)</summary>
+$$
+\left(\sum_ia_ix_i\right)=\sum_iia_ix^{i-1}
+$$
+<details class="list-none">
+<summary>**Proof.**</summary>
+$$
+\begin{align*}
+\left(\sum_ia_ix_i\right)&=\sum(a_ix^i)'\\
+&=\sum a_i'x^i+a_i(x^i)'\\
+&=\sum\left(0x^i+a_i\left(\sum_{j=1}^ix^{j-1}(x')x^{i-j}\right)\right)\\
+&=\sum_i\sum_{j=1}^ia_ix^{i-1}\\
+&=\sum_iia_ix^{i-1}\quad\square
+\end{align*}
+$$
+</details>
+</details>
+
+<details class="theorem" open>
+<summary>has a multiple zero in extension $\iff$ not coprime with derivative</summary>
+for any polynomial $f(x)$ over field $F$
+
+$f(x)$ has a mult zero in some ext $E\iff f(x)$ and $f'(x)$ are not coprime in $F[x]$
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+
+(not relative prime means has common factor of positive degree)
+
+$(\implies)$ assume $f(x)\in F[x]$ has a multiple zero $a$ in some extension $E$
+
+- $\therefore\exists g(x)\in E[x]$ st $f(x)=(x-a)^2g(x)$
+- $\therefore f'(x)=(x-a)^2g'(x)-2(x-a)g(x)$
+- $\therefore(x-a)$ is common factor of $f(x)$ and $f'(x)$ in $E[x]$
+- BWOC assume $f(x)$ and $f'(x)$ has no comm fac of pos deg in $F[x]$
+- $\therefore\exists h(x),k(x)\in F[x]$ st $f(x)h(x)+f'(x)k(x)=1$
+- $\because(x-a)$ is comm fac of $f(x)h(x)+f'(x)k(x)\in E[x]$ 
+- $\therefore$ contradicts that $(x-a)$ is not factor of $1\in E[x]$
+- $\therefore f(x)$ and $f'(x)$ not relative prime
+
+
+$(\impliedby)$ assume has common factor of positive degree
+- let $a\in F$ be zero of such common factor
+- $\therefore a$ is zero of $f(x)$ and $f'(x)$
+- $\therefore\exists q(x)\in F[x]$ st $f(x)=(x-a)q(x)$
+- $\therefore f'(x)=(x-a)q'(x)+q(x)$ and $0=f'(a)=q(a)$
+- $\therefore a$ is zero of $q(x)$, thus multiple zero of $f(x)=(x-a)q(x)\quad\square$
+</details>
+</details>
+
+## Algebraic Extensions
+
+<details class="definition" open>
+<summary>extension field is vector space</summary>
+for extension $E$ of field $F$
+
+<div class="flex justify-center">
+$E$ is a vector space over $F$
+</div>
+- $[E:F]=\dim E$ is the **degree** of extension
+- $E$ is a **finite** extension iff $E$ is finite dimensional
+</details>
+
+<details class="definition" open>
+<summary>algebraic extension</summary>
+for extension $E$ over field $F$
+
+- $a\in E$ is **algebraic** over $F\iff a$ is zero of some polynomial in $F[x]$
+  - otherwise *transcendental* (transcends the power of algebraic methods)
+- extension $E$ is **algebraic** over $F\iff$ every element in $E$ is algebraic over $F$
+</details>
+
+<details class="theorem" open>
+<summary>characterisations of extensions</summary>
+for extension $E$ over field $F$
+
+- $a\in E$ is algebraic over $F\implies F(a)\cong F[x]/\langle p(x)\rangle$ where $p(x)$ is minimum 
+- $a\in E$ is transcendental over $F\implies F(a)\cong F(x)$
+</details>
+<details class="definition" open>
+<summary>minimum polynomial for algebraic $a\in E$ over field $F$</summary>
+$p(x)\in F[x]$ is monic irreducible and $p(a)=0$
+</details>
+
+<details class="theorem" open>
+<summary>minimum polynomial is unique</summary>
+</details>
+
+<details class="theorem" open>
+<summary>minimum polynomial divides polynomials with same zero</summary>
+for minimum $p(x)\in F[x]$ for algebraic $a\in E$ over field $F$
+
+$$
+\forall f(x)\in F[x]\enspace f(a)=0\implies p(x)|f(x)
+$$
+</details>
+
+
+
+
+## Finite Fields
+
+<details class="theorem" open>
+<summary>finite fields of prime power order exists and unique up to isomorphism</summary>
+for any prime power $q=p^n$ there is a unique field of order $q$ up to isomorphism
+
+<details class="list-none">
+<summary>**Proof.**</summary>
+wts exists, let any prime power $q=p^n$
+
+- let $E$ be splitting field of polynomial $f(x)=x^q-x$ over field $\mathbb Z_p$
+- $\therefore E$ contains all $q$ zeros of $f(x)$ with multiplicity
+- $\because f'(x)=p^nx^{q-1}-1=-1\in\mathbb Z_p[x]$ is coprime with $f(x)$
+- $\therefore f(x)$ has $q$ distinct zeros in $E$
+- let $K=\{a\in E:f(a)=0\}$ be field with order $q$
+- $\because K$ has a subfield isomorphic to $\mathbb Z_p$ generated by $1\in K$
+- $\therefore f(x)\in\mathbb Z_p[x]$ splits in extension field $K\sube E$
+- $\therefore K=E$ since $E$ is smallest, thus $|E|=q$
+
+wts unique, let any field $K$ of order $q$
+
+- $\therefore K$ is extension of $\mathbb Z_p$
+- $\because K^*$ is multiplicative group of order $q-1$
+- $\therefore x^{q-1}=1$ for any $x\in K^*$
+- $\therefore x^q=x$ for any $x\in K$
+- $\therefore K=\{a:f(a)=0\}$, thus is splitting field of $f(x)$ over $\mathbb Z_p$
+- $\therefore$ unique since all splitting fields are isomorphic $\quad\square$
+</details>
+
+let $\mathbb F_q$ denote THE field of order $q$
+</details>
+
+<details class="example" open>
+<summary>constructions for prime $p$</summary>
+
+$\mathbb F_p\cong\mathbb Z_p$
+- add mod $p$, mul mod $p$
+
+$\mathbb F_{p^n}\cong\mathbb F_p^n$ with $\dim\mathbb F_{p^n}=n$
+</details>
+
+<details class="theorem" open>
+<summary>vector space in addition, cyclic in multiplication</summary>
+$\mathbb F_{p^n}\cong\mathbb Z_p^n$  under addition\
+$\mathbb F_q^*\cong\mathbb Z_{q-1}$ under multiplication
+</details>
+

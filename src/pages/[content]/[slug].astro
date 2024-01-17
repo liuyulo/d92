@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from "astro";
+import Main from "../../layouts/Main.astro";
+import { getCollection } from "astro:content";
+import { collections } from "../../content/config";
+
+export const getStaticPaths = (async () => {
+    let arr = [];
+    for (const content in collections) {
+        const c = await getCollection(content as any);
+        arr.push(
+            ...c.map((entry: any) => ({
+                params: { content, slug: entry.slug },
+                props: { entry },
+            })),
+        );
+    }
+    return arr;
+}) satisfies GetStaticPaths;
+
+const {
+    entry: {
+        render,
+        data: { title },
+    },
+} = Astro.props;
+const { Content, headings: _ } = await render();
+---
+
+<Main {title}>
+    <h1><a href="../">{title}</a></h1>
+    <Content />
+</Main>
